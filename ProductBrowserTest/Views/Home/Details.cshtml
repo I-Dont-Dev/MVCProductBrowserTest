@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Product Details";
+}
+@model ProductModel
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Title</h1>
+
+    <img src="@Model.Thumbnail" />
+    <br>
+    @foreach (string imageUrl in Model.Images)
+    {
+        <img src=@imageUrl width="100" height="100"/>
+    }
+
+    <p>@Model.Description</p>
+
+    <p><strong>Price:</strong> @Model.Price</p>
+    <p><strong>Tags:</strong> @string.Join(", ", Model.Tags)</p>
+    <p><strong>Shipping Information:</strong> @Model.ShippingInformation</p>
+    
+</div>

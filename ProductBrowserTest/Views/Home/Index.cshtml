@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Product List";
+    int currentPage = Convert.ToInt32(ViewContext.HttpContext.Request.Query["page"].ToString() ?? "1");
+}
+@model ProductListModel
+
+<div class="text-center">
+    <h1 class="display-4">Product List</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Thumbnail</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Tags</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (ProductModel product in Model.Products)
+        {
+            <tr onclick="window.location='@Url.Action("Details", "Home", new { id = product.Id })'">
+                <td>
+                     <img src="@product.Thumbnail"/>
+                </td>
+                <td>@product.Title</td>
+                <td>@product.Price</td>
+                <td>@string.Join(", ", product.Tags)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between mt-3">
+        @if (Model.ShowPreviousPageButton)
+        {
+            <a class="btn btn-primary"
+               href="@Url.Action("Index", "Home", new { page = currentPage - 1 })">
+                Previous
+            </a>
+        }
+        else
+        {
+            <span></span>
+        }
+
+        @if (Model.ShowNextPageButton)
+        {
+            <a class="btn btn-primary"
+               href="@Url.Action("Index", "Home", new { page = currentPage + 1 })">
+                Next
+            </a>
+        }
+    </div>
+</div>
